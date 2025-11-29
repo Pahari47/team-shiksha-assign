@@ -2,38 +2,44 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignUpSchema, SignUpInput } from "@/lib/validation";
+import { UpdateUserSchema, UpdateUserInput } from "@/lib/validation";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export default function SignUpPage() {
-  const router = useRouter();
+export default function EditForm({ user }: { user: any }) {
+  const [msg, setMsg] = useState("");
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpInput>({
-    resolver: zodResolver(SignUpSchema),
+  } = useForm<UpdateUserInput>({
+    resolver: zodResolver(UpdateUserSchema),
+    defaultValues: {
+      name: user.name,
+      email: user.email,
+    },
   });
 
-  async function onSubmit(data: SignUpInput) {
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
+  async function onSubmit(data: UpdateUserInput) {
+    const res = await fetch("/api/user", {
+      method: "PUT",
       body: JSON.stringify(data),
     });
 
     if (res.ok) {
-      router.push("/sign-in");
+      setMsg("Profile updated!");
     } else {
-      alert("Registration failed");
+      setMsg("Update failed");
     }
   }
 
   return (
-    <>
-      <h2 className="text-2xl font-semibold mb-4">Sign Up</h2>
+    <div className="mt-8">
+      <h2 className="text-xl font-semibold mb-3">Edit Profile</h2>
+
+      {msg && <p className="text-green-600 mb-2">{msg}</p>}
 
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -49,17 +55,10 @@ export default function SignUpPage() {
           {...register("email")}
         />
 
-        <Input
-          label="Password"
-          type="password"
-          error={errors.password?.message}
-          {...register("password")}
-        />
-
         <Button type="submit" loading={isSubmitting}>
-          Create Account
+          Save Changes
         </Button>
       </form>
-    </>
+    </div>
   );
 }
