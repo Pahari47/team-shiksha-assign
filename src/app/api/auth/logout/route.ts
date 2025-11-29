@@ -1,14 +1,15 @@
 import { NextResponse } from "next/server";
 
 export async function POST() {
-  const res = NextResponse.redirect("/sign-in");
+  const response = NextResponse.redirect(new URL("/sign-in", process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"));
 
-  res.cookies.set("token", "", {
+  response.cookies.set("token", "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    expires: new Date(0),
+    sameSite: "strict",
     path: "/",
+    expires: new Date(0),
   });
 
-  return res;
+  return response;
 }

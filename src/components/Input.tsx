@@ -19,7 +19,7 @@ const Input: React.FC<InputProps> = ({ label, error, ...props }) => {
                 `}
             />
 
-            {error && <p className="text-xs text-red-500">{error}</p>}
+            {error && <p className="text-xs text-black">{error}</p>}
         </div>
     )
 }
