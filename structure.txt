@@ -1,0 +1,50 @@
+my-app/
+│
+├── prisma/
+│   └── schema.prisma                # Database schema (User model etc.)
+│
+├── src/
+│   ├── app/
+│   │   ├── (auth)/                  # Route group for authentication UI
+│   │   │   ├── sign-in/
+│   │   │   │   └── page.tsx         # Sign In screen
+│   │   │   ├── sign-up/
+│   │   │   │   └── page.tsx         # Sign Up screen
+│   │   │   └── layout.tsx           # Layout wrapper for auth pages
+│   │   │
+│   │   ├── dashboard/
+│   │   │   ├── page.tsx             # Shows user profile dashboard
+│   │   │   └── EditForm.tsx         # User edit form component
+│   │   │
+│   │   ├── api/
+│   │   │   ├── auth/
+│   │   │   │   ├── login/route.ts   # Login API
+│   │   │   │   └── register/route.ts# Register API
+│   │   │   └── user/
+│   │   │       └── route.ts         # Update/get user API
+│   │   │
+│   │   └── layout.tsx               # Root layout
+│   │
+│   ├── components/
+│   │   ├── Input.tsx                # Reusable input field
+│   │   ├── Button.tsx               # Reusable button
+│   │   └── Navbar.tsx               # Optional Navbar
+│   │
+│   ├── lib/
+│   │   ├── prisma.ts                # Prisma client instance
+│   │   ├── auth.ts                  # Helper for auth middleware (JWT)
+│   │   └── validation.ts            # Zod validation schemas
+│   │
+│   ├── types/
+│   │   └── user.ts                  # TypeScript User types
+│   │
+│   └── utils/
+│       └── hash.ts                  # Password hashing utils (bcrypt)
+│
+├── tests/
+│   ├── auth.test.ts                 # Unit test for login/register
+│   ├── dashboard.test.ts            # Dashboard tests
+│   └── sample.test.ts               # Basic example Jest test
+│
+├── jest.config.js                   # Jest setup
+└── tailwind.config.js               # Tailwind setup
