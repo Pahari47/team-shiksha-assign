@@ -42,9 +42,11 @@ This project includes:
 
 git clone https://github.com/Pahari47/team-shiksha-assign.git
 
-##  Environment Variables
+
 
 ```env
+## add .env
+
 DATABASE_URL="postgresql://<username>:<password>@<host>/<db>?sslmode=require" (suggest to use docker to run locally postgress)
 JWT_SECRET="your-secure-secret"
 
