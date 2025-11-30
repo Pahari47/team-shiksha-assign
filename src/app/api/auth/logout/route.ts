@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 
-export async function POST() {
-  const response = NextResponse.redirect(new URL("/sign-in", process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"));
+export async function POST(req: Request) {
+  const origin = new URL(req.url).origin;
+
+  const response = NextResponse.redirect(`${origin}/sign-in`);
 
   response.cookies.set("token", "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
     path: "/",
     expires: new Date(0),
   });
